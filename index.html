@@ -3,13 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hips Don't Lie</title>
+    <title>Hips Don't Lie: Swaying to the Rhythm</title>
     <link defer rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
     <script defer src="script.js"></script>
-
 </head>
 <body>
+    <div id="tooltip" class="tooltip hidden">
+        <h3 class="tooltip-title">Body Sway Analysis</h3>
+        <div class="tooltip-content"></div>
+    </div>
     
+    <main>
+        <section id="intro" class="section">
+            <div class="content">
+                <h1>Swaying to the Rhythm: How Music Moves Us</h1>
+                <p>Explore how music synchronized with visual motion influences our body's stability and sway patterns.</p>
+            </div>
+        </section>
+
+        <section id="scrolly" class="section">
+            <div class="sticky-graphic">
+                <div id="visualization"></div>
+            </div>
+            
+            <div class="scroll-sections">
+                <div class="step" data-step="1">
+                    <div class="content">
+                        <h2>The Balancing Act</h2>
+                        <p>Body sway is a natural phenomenon as we stand. Even when we think we're perfectly still, our body makes tiny adjustments to maintain balance.</p>
+                        <p>This constant adjustment becomes more pronounced as we age, increasing the risk of falls in older populations.</p>
+                    </div>
+                </div>
+                
+                <div class="step" data-step="2">
+                    <div class="content">
+                        <h2>Understanding Sway Patterns</h2>
+                        <p>Scientists measure sway in two primary directions:</p>
+                        <p><strong>Anterior-Posterior (AP):</strong> Forward and backward movement</p>
+                        <p><strong>Medial-Lateral (ML):</strong> Side-to-side movement</p>
+                        <p>Hover over the figure to see these movements in action.</p>
+                    </div>
+                </div>
+                
+                <div class="step" data-step="3">
+                    <div class="content">
+                        <h2>The Experiment</h2>
+                        <p>Researchers placed participants on balance platforms while exposing them to different combinations of music and visual stimuli in VR environments.</p>
+                    </div>
+                </div>
+                
+                <div class="step" data-step="4">
+                    <div class="content">
+                        <h2>The Results</h2>
+                        <p>When audio and visual cues were synchronized, participants showed measurable changes in their sway patterns.</p>
+                        <p>The data revealed fascinating insights about how our brains process multisensory information to maintain balance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="section">
+            <div class="content">
+                <h2>Moving Forward</h2>
+                <p>Understanding how music and visual stimuli affect our balance could lead to innovative therapies for balance disorders and fall prevention in aging populations.</p>
+                <p>The rhythm of music might just be the key to helping us stay steady on our feet.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+main {
+    position: relative;
+}
+
+.section {
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#intro, #conclusion {
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #3498db;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Scrollytelling specific styles */
+#scrolly {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse; /* Reverse the order to put visualization on right */
+    background-color: #fff;
+}
+
+.sticky-graphic {
+    position: sticky;
+    width: 60%;
+    height: 100vh;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0; /* Stick to the right side */
+}
+
+.scroll-sections {
+    width: 40%;
+    padding: 0 1rem;
+    margin-right: auto; /* Push to the left */
+}
+
+/* Make sure the tooltip appears above everything else */
+.tooltip {
+    z-index: 1000;
+}
+
+#visualization {
+    width: 100%;
+    height: 80%;
+    position: relative;
+}
+
+.scroll-sections {
+    width: 40%;
+    padding: 0 1rem;
+}
+
+.step {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    opacity: 0.3;
+    transition: opacity 0.5s;
+}
+
+.step.is-active {
+    opacity: 1;
+}
+
+/* Figure styling */
+.human-figure {
+    transition: transform 0.5s ease-out;
+}
+
+.sway-annotation {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sway-annotation.visible {
+    opacity: 1;
+}
+
+.platform {
+    fill: #ddd;
+    stroke: #999;
+    stroke-width: 2px;
+}
+
+.ap-arrow, .ml-arrow {
+    stroke: #e74c3c;
+    stroke-width: 2px;
+    fill: none;
+}
+
+.ap-label, .ml-label {
+    font-size: 12px;
+    fill: #e74c3c;
+    text-anchor: middle;
+}
+
+/* Add this to your existing CSS */
+
+.tooltip {
+    position: absolute;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 14px;
+    max-width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    transition: opacity 0.3s;
+}
+
+.tooltip.hidden {
+    opacity: 0;
+}
+
+.tooltip-title {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3498db;
+}
+
+.tooltip-content {
+    line-height: 1.4;
+}
+
+.tooltip-stat {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.tooltip-label {
+    font-weight: bold;
+}
