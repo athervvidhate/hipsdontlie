@@ -3,84 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hips Don't Lie: Swaying to the Rhythm</title>
-    <link defer rel="stylesheet" href="style.css">
+    <title>Body Sway Visualization</title>
+
+    <!-- Include D3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <!-- Include Scrollama -->
     <script src="https://unpkg.com/scrollama"></script>
-    <script defer src="script.js"></script>
+
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <body>
-    <div id="tooltip" class="tooltip hidden">
-        <h3 class="tooltip-title">Body Sway Analysis</h3>
-        <div class="tooltip-content"></div>
-    </div>
-    
-    <main>
-        <section id="intro" class="section">
-            <div class="content">
-                <h1>Hips Don't Lie: How Music Moves Us</h1>
-                <p>Scroll to explore how music synchronized with visual motion influences our body's stability and sway patterns.</p>
-            </div>
-        </section>
 
-        <section id="scrolly" class="section">
+    <!-- Participant Selector -->
+    <div id="controls">
+        <label for="participantSelector">Select Participant:</label>
+        <select id="participantSelector"></select>
+    </div>
+
+    <!-- Scrollytelling Container -->
+    <main>
+        <section id="scrolly">
+            <div class="scroll-sections">
+                <!-- Step 1: ECR (VR with music) -->
+                <div class="step">
+                    <div class="content">
+                        <h2>VR with Mozart’s Jupiter</h2>
+                        <p>Participants stood with their eyes closed, experiencing VR while listening to unmodified Mozart's Jupiter Symphony.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2: ECN (VR without music) -->
+                <div class="step">
+                    <div class="content">
+                        <h2>VR without Music</h2>
+                        <p>Participants stood with their eyes closed, experiencing VR but without music.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Visualization Area -->
             <div class="sticky-graphic">
                 <div id="visualization"></div>
             </div>
-            
-            <div class="scroll-sections">
-                <div class="step" data-step="1">
-                    <div class="content">
-                        <h2>The Balancing Act</h2>
-                        <p>Body sway is a natural phenomenon as we stand. Even when we think we're perfectly still, our body makes tiny adjustments to maintain balance.</p>
-                        <p>This constant adjustment becomes more pronounced as we age, increasing the risk of falls in older populations.</p>
-                        <p>Hover to see the sway of the participants and detailed tips!</p>
-                    </div>
-                </div>
-                
-                <div class="step" data-step="2">
-                    <div class="content">
-                        <h2>Understanding Sway Patterns</h2>
-                        <p>Scientists measure sway in two primary directions:</p>
-                        <p><strong>Anterior-Posterior (AP):</strong> Forward and backward movement</p>
-                        <p><strong>Medial-Lateral (ML):</strong> Side-to-side movement</p>
-                        <p>Hover over the figure to see these movements in action.</p>
-                    </div>
-                </div>
-                
-                <div class="step" data-step="3">
-                    <div class="content">
-                        <h2>The Experiment</h2>
-                        <p>
-                            <ul>
-                                <li>Study was conducted to see how music influences body sway</li>
-                                <li>Participants stood on a balance platform while experiencing various combinations of VR visual motion and Mozards <i>Jupiter Symphony</i>, modified to scale volume at different frequencies</li>
-                                <li>Center of pressure movement was recorded under 12 conditions, including different visual and auditory inputs</li>
-                            </ul>
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="step" data-step="4">
-                    <div class="content">
-                        <h2>The Results</h2>
-                        <p>When audio and visual cues were synchronized, participants showed measurable changes in their sway patterns.</p>
-                        <p>The data revealed fascinating insights about how our brains process multisensory information to maintain balance.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="conclusion" class="section">
-            <div class="content">
-                <h2>Write-Up (Prototype)</h2>
-                <p>Following completing the original checkpoint, the Dream Team realized that their data was not sufficient for a final project. The dataset we used was rather complicated, and we felt like it would be difficult to find conclusions in the data that we could talk about in a “scrolly-telling” manner. As a result, we went back to the drawing board, and eventually came across the body sway dataset. This dataset shows body movement for 28 subjects over the course of a minute in different situations, where the variables lie in the “loudness” of Mozart music being played, as well as whether the subject had their eyes closed or not. </p>
-
-                <p>So far, we’ve added a basic description of the experiment to contextualize it for viewers. We wrote code for a rough template of the style we want our website to be in both D3 and CSS. We constructed a human body using a couple of shapes for our first visualization, and added an interactive hover element on it to help understand what the natural amount of body sway in humans would be. We did some data cleaning by grouping data in milliseconds to data in seconds, preparing to add a section in our website that talks about summary statistics. Next, our plan is to continue to do more exploratory data analysis to further determine what additional interactive visualizations to add, and the organization of what we want to display to the viewers. </p>
-                    
-                <p>There will be many challenging aspects of our design. One obstacle that we assume we will face is dealing with the large amount of data. The data we were given comes in a total of 336 CSV files, so conducting EDA on that much data will be difficult. It will take a lot of perseverance and teamwork to derive conclusions from data much larger than anything any of the four of us have ever worked with. Another challenging part of our design will be determining the most effective visual encodings to use when constructing our webpage. With many different options of what to use, balancing the variety and simplicity of our visualizations will be key in keeping the viewers engaged and interested in our final product. </p>
-            </div>
         </section>
     </main>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip hidden"></div>
+
+    <div id="animation-controls" class="controls-container">
+        <button id="play-button" class="control-button">
+            <i class="fas fa-play"></i> Play
+        </button>
+        <div class="slider-container">
+            <input type="range" id="time-slider" min="0" max="1800" value="0" class="time-slider">
+            <div id="time-display" class="time-display">Time: 0s</div>
+        </div>
+    </div>
+    
+
+    <!-- Load JavaScript -->
+    <script src="script.js"></script>
+
 </body>
 </html>

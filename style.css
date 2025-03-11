@@ -85,9 +85,10 @@ p {
 
 #visualization {
     width: 100%;
-    height: 80%;
+    height: 500px;
     position: relative;
 }
+
 
 .scroll-sections {
     width: 40%;
@@ -140,19 +141,48 @@ p {
 
 /* Add this to your existing CSS */
 
+/* Tooltip Styling */
 .tooltip {
     position: absolute;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
     pointer-events: none;
-    font-size: 14px;
-    max-width: 250px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 100;
-    transition: opacity 0.3s;
+    visibility: hidden; /* Instead of display: none */
 }
+
+.tooltip.hidden {
+    visibility: hidden;
+}
+.tooltip.visible {
+    visibility: visible;
+}
+
+
+.tooltip.hidden {
+    opacity: 0;
+}
+
+.tooltip-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #3498db;
+    margin-bottom: 5px;
+}
+
+.tooltip-stat {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.tooltip-label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
 
 .tooltip.hidden {
     opacity: 0;
@@ -177,4 +207,164 @@ p {
 
 .tooltip-label {
     font-weight: bold;
+}
+
+
+/* Participant Selector Styling */
+#controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#controls label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-right: 10px;
+}
+
+#participantSelector {
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background: white;
+    color: #2c3e50;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#participantSelector:hover {
+    border-color: #2980b9;
+}
+
+#participantSelector:focus {
+    border-color: #1a5276;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+
+.human-figure {
+    pointer-events: all;
+}
+
+
+/* Animation Controls */
+.controls-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.control-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 15px;
+    transition: background-color 0.3s;
+}
+
+.control-button:hover {
+    background-color: #2980b9;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.time-slider {
+    width: 100%;
+    height: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #e0e0e0;
+    outline: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.time-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.time-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.time-display {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+
+/* Make tooltip work with animation */
+.tooltip {
+    position: absolute;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 100;
+    transition: opacity 0.2s;
+}
+
+.tooltip.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.tooltip-stat {
+    display: flex;
+    justify-content: space-between;
+    margin: 3px 0;
+}
+
+.tooltip-label {
+    font-weight: 500;
+    margin-right: 10px;
+    color: #777;
 }
