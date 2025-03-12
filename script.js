@@ -415,9 +415,9 @@ function updateTooltip(condition, dataPoint) {
     const tooltipContent = `
         <div class="tooltip-title" style="color: white;">Participant ${selectedParticipant}</div>
         <div class="tooltip-stat"><span class="tooltip-label">Condition:</span><span>${condition}</span></div>
-        <div class="tooltip-stat"><span class="tooltip-label">Time:</span><span>${dataPoint.time.toFixed(2)}s</span></div>
-        <div class="tooltip-stat"><span class="tooltip-label">COPx:</span><span>${dataPoint.copX.toFixed(2)} mm</span></div>
-        <div class="tooltip-stat"><span class="tooltip-label">COPy:</span><span>${dataPoint.copY.toFixed(2)} mm</span></div>`;
+        <div class="tooltip-stat"><span class="tooltip-label">Time:</span><span>${dataPoint.time.toFixed(0)}s</span></div>
+        <div class="tooltip-stat"><span class="tooltip-label">COPx:</span><span>${dataPoint.copX.toFixed(3)}m</span></div>
+        <div class="tooltip-stat"><span class="tooltip-label">COPy:</span><span>${dataPoint.copY.toFixed(3)}m</span></div>`;
     
     // Force tooltip to update and be visible
     tooltip.html(tooltipContent)
