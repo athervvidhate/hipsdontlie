@@ -9,7 +9,20 @@ let currentTimeIndex = 0;
 // Wait for DOM to load
 document.addEventListener('DOMContentLoaded', async function () {
     scroller = scrollama();
-    tooltip = d3.select("body").append("div").attr("id", "tooltip").classed("tooltip hidden", true);
+    
+    // Create tooltip with explicit styling
+    tooltip = d3.select("body").append("div")
+        .attr("id", "tooltip")
+        .classed("tooltip", true)
+        .classed("hidden", true)
+        .style("position", "absolute")
+        .style("background", "rgba(0, 0, 0, 0.8)")
+        .style("color", "white")
+        .style("padding", "10px")
+        .style("border-radius", "5px")
+        .style("pointer-events", "none")
+        .style("z-index", 1000)
+        .style("display", "none");
 
     await loadData(); // Load data first
     setupVisualization();
@@ -56,6 +69,14 @@ async function loadData() {
             // Sort data by time for each participant
             for (let participant in swayData[condition]) {
                 swayData[condition][participant].sort((a, b) => a.time - b.time);
+                
+                // Calculate average COP position for each participant
+                const avgX = d3.mean(swayData[condition][participant], d => d.copX);
+                const avgY = d3.mean(swayData[condition][participant], d => d.copY);
+                
+                // Store the average values
+                swayData[condition][participant].avgX = avgX;
+                swayData[condition][participant].avgY = avgY;
             }
 
             console.log(`✅ Loaded ${condition} data:`, swayData[condition]);
@@ -90,10 +111,10 @@ function setupVisualization() {
         .attr("rx", 5)
         .attr("fill", "#ccc");
 
-    // Human figure
+    // Human figure - initially positioned at (0,0) which is the center
     figure = g.append("g")
         .attr("class", "human-figure")
-        .attr("transform", "translate(0, 0)")
+        .attr("transform", "translate(0, 0)") // Start at origin
         .on("mouseover", showTooltip)
         .on("mousemove", moveTooltip)
         .on("mouseout", hideTooltip);
@@ -114,6 +135,38 @@ function setupVisualization() {
 function setupAnimationControls() {
     const controls = d3.select("#animation-controls");
     
+    // Make the existing controls a fixed footer
+    controls
+        .style("position", "fixed")
+        .style("bottom", "0")
+        .style("left", "0")
+        .style("width", "100%")
+        .style("background-color", "rgba(255, 255, 255, 0.9)")
+        .style("padding", "10px 20px")
+        .style("box-shadow", "0 -2px 10px rgba(0, 0, 0, 0.1)")
+        .style("z-index", "1000")
+        .style("display", "flex")
+        .style("align-items", "center")
+        .style("justify-content", "center");
+    
+    // Style the inner elements for better appearance in the footer
+    controls.select("#play-button")
+        .style("margin-right", "15px")
+        .style("padding", "8px 15px")
+        .style("background", "#3498db")
+        .style("color", "white")
+        .style("border", "none")
+        .style("border-radius", "4px")
+        .style("cursor", "pointer");
+    
+    controls.select("#time-slider")
+        .style("flex-grow", "1")
+        .style("margin", "0 10px");
+    
+    controls.select("#time-display")
+        .style("min-width", "70px")
+        .style("text-align", "right");
+    
     // Play/Pause button
     controls.select("#play-button").on("click", togglePlayPause);
     
@@ -123,6 +176,9 @@ function setupAnimationControls() {
         currentTimeIndex = parseInt(this.value);
         updateFigurePosition();
     });
+    
+    // Add some padding to the bottom of the page to account for the fixed footer
+    d3.select("body").style("padding-bottom", "60px");
 }
 
 // ** Toggle Play/Pause **
@@ -147,6 +203,11 @@ function startAnimation() {
     const participantData = swayData[condition][selectedParticipant];
     
     if (!participantData || participantData.length === 0) return;
+    
+    // If we're at the beginning, start from the origin
+    if (currentTimeIndex === 0) {
+        figure.attr("transform", "translate(0, 0)");
+    }
     
     const maxTime = 60; // 60 seconds animation
     const fps = 30; // frames per second
@@ -186,31 +247,39 @@ function updateFigurePosition() {
     
     if (!participantData || participantData.length === 0) return;
     
+    // If time index is 0 and not playing, keep figure at origin
+    if (currentTimeIndex === 0 && !isPlaying) {
+        figure.transition()
+            .duration(300)
+            .attr("transform", "translate(0, 0)");
+        return;
+    }
+    
     // Convert current animation frame to seconds
     const fps = 30;
     const currentTime = currentTimeIndex / fps;
     
     // Find the closest data point to the current time
     const dataPoint = findDataPointByTime(participantData, currentTime);
-
-    console.log(dataPoint);
     
     if (!dataPoint) return;
     
     // Scale factor for visualization (adjust as needed)
-    const scaleFactor = 1000;
-    const xOffset = dataPoint.copX * scaleFactor;
-    const yOffset = dataPoint.copY * scaleFactor;
-
-    console.log(xOffset, yOffset);
+    const scaleFactor = 2500;
+    
+    // Calculate the position relative to the average (centering the sway around origin)
+    const xOffset = (dataPoint.copX - participantData.avgX) * scaleFactor;
+    const yOffset = (dataPoint.copY - participantData.avgY) * scaleFactor;
     
     // Update figure position
     figure.transition()
         .duration(30) // Quick transition for smooth animation
         .attr("transform", `translate(${xOffset}, ${yOffset})`);
     
-    // Update tooltip
-    updateTooltip(condition, dataPoint);
+    // Update tooltip if it's visible
+    if (tooltipVisible) {
+        updateTooltip(condition, dataPoint);
+    }
 }
 
 // ** Find the closest data point to a given time **
@@ -269,6 +338,12 @@ function handleStepEnter(response) {
     d3.select("#time-slider").property("value", 0);
     d3.select("#time-display").text("Time: 0s");
     
+    // Reset figure to origin
+    figure.transition()
+        .duration(300)
+        .attr("transform", "translate(0, 0)");
+    
+    // Call updateVisualization but don't update figure position
     updateVisualization(currentStep);
 }
 
@@ -282,6 +357,11 @@ function updateVisualization(step) {
     // Reset time index when changing visualization
     currentTimeIndex = 0;
     
+    // Reset figure position to origin when changing visualization
+    figure.transition()
+        .duration(300)
+        .attr("transform", "translate(0, 0)");
+    
     // Update max value for slider based on data length
     const participantData = swayData[condition][selectedParticipant];
     if (participantData && participantData.length > 0) {
@@ -292,7 +372,8 @@ function updateVisualization(step) {
             .property("value", 0);
     }
     
-    updateFigurePosition();
+    // Don't automatically call updateFigurePosition here
+    // This prevents the figure from moving away from origin
 }
 
 // ** Participant Selector **
@@ -315,27 +396,87 @@ function setupParticipantSelector() {
 function showTooltip(event) {
     tooltipVisible = true;
     tooltip.classed("hidden", false).classed("visible", true);
+    
+    // Get current data point and update tooltip content when shown
+    const condition = currentStep === 1 ? "ECR" : "ECN";
+    const participantData = swayData[condition][selectedParticipant];
+    
+    if (participantData && participantData.length > 0) {
+        const fps = 30;
+        const currentTime = currentTimeIndex / fps;
+        const dataPoint = findDataPointByTime(participantData, currentTime);
+        
+        if (dataPoint) {
+            updateTooltip(condition, dataPoint);
+        }
+    }
 }
 
 function updateTooltip(condition, dataPoint) {
     if (!dataPoint) return;
-    let tooltipContent = `
-        <div class="tooltip-title">Participant ${selectedParticipant}</div>
+    
+    // Make sure we're using the actual data values, not references
+    const tooltipContent = `
+        <div class="tooltip-title" style="color: white;">Participant ${selectedParticipant}</div>
         <div class="tooltip-stat"><span class="tooltip-label">Condition:</span><span>${condition}</span></div>
         <div class="tooltip-stat"><span class="tooltip-label">Time:</span><span>${dataPoint.time.toFixed(2)}s</span></div>
         <div class="tooltip-stat"><span class="tooltip-label">COPx:</span><span>${dataPoint.copX.toFixed(2)} mm</span></div>
         <div class="tooltip-stat"><span class="tooltip-label">COPy:</span><span>${dataPoint.copY.toFixed(2)} mm</span></div>`;
+    
+    // Force tooltip to update and be visible
     tooltip.html(tooltipContent)
            .classed("hidden", false)
-           .classed("visible", true);
-
-
-    console.log(tooltipContent);
+           .classed("visible", true)
+           .style("opacity", 1)
+           .style("display", "block");
+    
+    // For debugging
+    console.log("Tooltip updated with:", {
+        participant: selectedParticipant,
+        condition: condition,
+        time: dataPoint.time,
+        copX: dataPoint.copX,
+        copY: dataPoint.copY
+    });
 }
 
 function moveTooltip(event) {
     if (!tooltipVisible) return;
-    tooltip.style("left", `${event.pageX + 15}px`).style("top", `${event.pageY - 10}px`);
+    
+    // Make sure tooltip is visible and positioned correctly
+    tooltip.style("left", `${event.pageX + 15}px`)
+           .style("top", `${event.pageY - 10}px`)
+           .style("opacity", 1)
+           .style("display", "block");
+}
+
+function showTooltip(event) {
+    tooltipVisible = true;
+    
+    // Make sure tooltip is visible with proper styling
+    tooltip.classed("hidden", false)
+           .classed("visible", true)
+           .style("opacity", 1)
+           .style("display", "block")
+           .style("position", "absolute")
+           .style("z-index", 1000);
+    
+    // Get current data point and update tooltip content when shown
+    const condition = currentStep === 1 ? "ECR" : "ECN";
+    const participantData = swayData[condition][selectedParticipant];
+    
+    if (participantData && participantData.length > 0) {
+        const fps = 30;
+        const currentTime = currentTimeIndex / fps;
+        const dataPoint = findDataPointByTime(participantData, currentTime);
+        
+        if (dataPoint) {
+            updateTooltip(condition, dataPoint);
+        }
+    }
+    
+    // Position tooltip at the event location
+    moveTooltip(event);
 }
 
 function hideTooltip() {
