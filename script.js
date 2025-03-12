@@ -408,26 +408,6 @@ function setupParticipantSelector() {
     for (let i = 1; i <= 28; i++) selector.append("option").attr("value", i).text(`Participant ${i}`);
 }
 
-// ** Tooltip Functions **
-function showTooltip(event) {
-    tooltipVisible = true;
-    tooltip.classed("hidden", false).classed("visible", true);
-    
-    // Get current data point and update tooltip content when shown
-    const condition = currentStep === 2 ? "ECR" : "ECN";
-    const participantData = swayData[condition][selectedParticipant];
-    
-    if (participantData && participantData.length > 0) {
-        const fps = 30;
-        const currentTime = currentTimeIndex / fps;
-        const dataPoint = findDataPointByTime(participantData, currentTime);
-        
-        if (dataPoint) {
-            updateTooltip(condition, dataPoint);
-        }
-    }
-}
-
 function updateTooltip(condition, dataPoint) {
     if (!dataPoint) return;
     
@@ -497,5 +477,9 @@ function showTooltip(event) {
 
 function hideTooltip() {
     tooltipVisible = false;
-    tooltip.classed("hidden", true);
+    tooltip
+        .classed("hidden", true)
+        .classed("visible", false)
+        .style("opacity", 0)
+        .style("display", "none");
 }
