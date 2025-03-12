@@ -67,9 +67,10 @@ p {
     height: 100vh;
     top: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    right: 0; /* Stick to the right side */
+    right: 0;
 }
 
 .scroll-sections {
@@ -106,6 +107,18 @@ p {
 .step.is-active {
     opacity: 1;
 }
+
+.full-screen {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.half-screen {
+    min-height: 80vh;
+    width: 40%;
+    padding: 0 1rem;
+}
+
 
 /* Figure styling */
 .human-figure {
@@ -368,3 +381,4 @@ p {
     margin-right: 10px;
     color: #777;
 }
+

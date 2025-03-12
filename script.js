@@ -101,15 +101,30 @@ function setupVisualization() {
     const g = svg.append("g")
         .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    // Balance platform
+    // Create a boundary box instead of a balance platform
+    // This box will represent the area within which the figure can move
+    // Moving the box up by 50px to better center the figure within it
+    const boxSize = 300; 
+    const boxYOffset = -22; 
+    
     g.append("rect")
-        .attr("class", "platform")
-        .attr("x", -100)
-        .attr("y", 150)
-        .attr("width", 200)
-        .attr("height", 20)
+        .attr("class", "boundary-box")
+        .attr("x", -boxSize/2)
+        .attr("y", -boxSize/2 + boxYOffset) // Offset the box upward
+        .attr("width", boxSize)
+        .attr("height", boxSize)
         .attr("rx", 5)
-        .attr("fill", "#ccc");
+        .attr("fill", "none")
+        .attr("stroke", "#ccc")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "5,5");
+    
+    // Add a center marker to indicate the origin
+    g.append("circle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", 3)
+        .attr("fill", "#999");
 
     // Human figure - initially positioned at (0,0) which is the center
     figure = g.append("g")
@@ -126,9 +141,9 @@ function setupVisualization() {
     // Arms
     figure.append('line').attr('x1', -15).attr('y1', -70).attr('x2', -40).attr('y2', -30).attr('stroke', '#3498db').attr('stroke-width', 10);
     figure.append('line').attr('x1', 15).attr('y1', -70).attr('x2', 40).attr('y2', -30).attr('stroke', '#3498db').attr('stroke-width', 10);
-    // Legs
-    figure.append('line').attr('x1', -10).attr('y1', 5).attr('x2', -20).attr('y2', 150).attr('stroke', '#3498db').attr('stroke-width', 15);
-    figure.append('line').attr('x1', 10).attr('y1', 5).attr('x2', 20).attr('y2', 150).attr('stroke', '#3498db').attr('stroke-width', 15);
+    // Legs - making them longer but not as long as before
+    figure.append('line').attr('x1', -10).attr('y1', 5).attr('x2', -20).attr('y2', 100).attr('stroke', '#3498db').attr('stroke-width', 15);
+    figure.append('line').attr('x1', 10).attr('y1', 5).attr('x2', 20).attr('y2', 100).attr('stroke', '#3498db').attr('stroke-width', 15);
 }
 
 // ** Animation Controls Setup **
@@ -199,7 +214,7 @@ function startAnimation() {
     if (isPlaying) return;
     isPlaying = true;
     
-    const condition = currentStep === 1 ? "ECR" : "ECN";
+    const condition = currentStep === 2 ? "ECR" : "ECN";
     const participantData = swayData[condition][selectedParticipant];
     
     if (!participantData || participantData.length === 0) return;
@@ -242,7 +257,7 @@ function pauseAnimation() {
 
 // ** Update Figure Position based on current time **
 function updateFigurePosition() {
-    const condition = currentStep === 1 ? "ECR" : "ECN";
+    const condition = currentStep === 2 ? "ECR" : "ECN";
     const participantData = swayData[condition][selectedParticipant];
     
     if (!participantData || participantData.length === 0) return;
@@ -265,6 +280,7 @@ function updateFigurePosition() {
     if (!dataPoint) return;
     
     // Scale factor for visualization (adjust as needed)
+    // Using a smaller scale factor to keep movement within the box
     const scaleFactor = 2500;
     
     // Calculate the position relative to the average (centering the sway around origin)
@@ -398,7 +414,7 @@ function showTooltip(event) {
     tooltip.classed("hidden", false).classed("visible", true);
     
     // Get current data point and update tooltip content when shown
-    const condition = currentStep === 1 ? "ECR" : "ECN";
+    const condition = currentStep === 2 ? "ECR" : "ECN";
     const participantData = swayData[condition][selectedParticipant];
     
     if (participantData && participantData.length > 0) {
@@ -462,7 +478,7 @@ function showTooltip(event) {
            .style("z-index", 1000);
     
     // Get current data point and update tooltip content when shown
-    const condition = currentStep === 1 ? "ECR" : "ECN";
+    const condition = currentStep === 2 ? "ECR" : "ECN";
     const participantData = swayData[condition][selectedParticipant];
     
     if (participantData && participantData.length > 0) {
