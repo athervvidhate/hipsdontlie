@@ -134,29 +134,29 @@ function renderLineGraph(condition, container) {
           ` : ""}
         `);
 
-   container.append("button")
-       .attr("class", "reset-zoom")
-       .style("margin-top", "10px")
-       .style("display", "block")
-       .style("margin-left", "auto")
-       .style("margin-right", "auto")
-       .style("padding", "5px 10px")
-       .style("background", "#3498db")
-       .style("color", "white")
-       .style("border", "none")
-       .style("border-radius", "4px")
-       .style("cursor", "pointer")
-       .text("Reset Zoom")
-       .on("click", function () {
-           x.domain(originalDomain);
-           xAxisGroup.transition().duration(750).call(d3.axisBottom(x));
-           y.domain([yMin, yMax]); // Reset y-axis to participant-specific range
-           yAxisGroup.transition().duration(750).call(d3.axisLeft(y));
-           chartGroup.selectAll(".copx-line, .control-copx-line")
-               .transition().duration(750)
-               .attr("d", lineX);
-           chartGroup.selectAll(".copy-line, .control-copy-line")
-               .transition().duration(750)
-               .attr("d", lineY);
-       });
+//    container.append("button")
+//        .attr("class", "reset-zoom")
+//        .style("margin-top", "10px")
+//        .style("display", "block")
+//        .style("margin-left", "auto")
+//        .style("margin-right", "auto")
+//        .style("padding", "5px 10px")
+//        .style("background", "#3498db")
+//        .style("color", "white")
+//        .style("border", "none")
+//        .style("border-radius", "4px")
+//        .style("cursor", "pointer")
+//        .text("Reset Zoom")
+//        .on("click", function () {
+//            x.domain(originalDomain);
+//            xAxisGroup.transition().duration(750).call(d3.axisBottom(x));
+//            y.domain([yMin, yMax]); // Reset y-axis to participant-specific range
+//            yAxisGroup.transition().duration(750).call(d3.axisLeft(y));
+//            chartGroup.selectAll(".copx-line, .control-copx-line")
+//                .transition().duration(750)
+//                .attr("d", lineX);
+//            chartGroup.selectAll(".copy-line, .control-copy-line")
+//                .transition().duration(750)
+//                .attr("d", lineY);
+//        });
 }

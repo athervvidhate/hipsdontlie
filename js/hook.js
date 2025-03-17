@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hookLines = [
         "Every 11 seconds, someone visits the ER due to a fall.",
         "Every 19 minutes, someone dies.",
-        "Could Mozart and VR be the solution?"
+        "What if Mozart and VR was the solution?"
     ];
 
     let lineIndex = 0;
