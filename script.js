@@ -6,7 +6,7 @@ let isPlaying = false;
 let animationTimer;
 let currentTimeIndex = 0;
 
-// Wait for DOM to load
+
 document.addEventListener('DOMContentLoaded', async function () {
     scroller = scrollama();
     
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Handle window resize
     window.addEventListener("resize", scroller.resize);
+    d3.select("#animation-controls").style("display", "none");
 });
 
 // ** Load and process data **
@@ -674,9 +675,9 @@ function kernelEpanechnikov(k) {
     };
 }
 
-// ******************************************************************
-// Modified Scroll Step Handler: Adds a line graph for each condition
-// ******************************************************************
+
+
+// Then in the handleStepEnter function
 function handleStepEnter(response) {
     currentStep = response.index + 1;
     d3.selectAll(".step").classed("is-active", false);
@@ -696,6 +697,14 @@ function handleStepEnter(response) {
     
     // Update visualization (existing function)
     updateVisualization(currentStep);
+    
+    // Show animation controls only for specific sections by ID
+    const currentSectionId = d3.select(response.element).attr("id");
+    if (currentSectionId === "control" || currentSectionId === "condition1") {
+        d3.select("#animation-controls").style("display", "flex");
+    } else {
+        d3.select("#animation-controls").style("display", "none");
+    }
     
     // For steps that are not the permutation test, add a line graph below the text
     if (d3.select(response.element).attr("id") !== "permutation-test") {
