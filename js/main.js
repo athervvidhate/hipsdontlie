@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     await loadData();
     setupVisualization();
     setupParticipantSelector();
+    setupDataFilter();
     setupAnimationControls();
 
     scroller

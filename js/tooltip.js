@@ -15,15 +15,21 @@ function createTooltip() {
 }
 
 
+// tooltip.js (modified snippet)
 function updateTooltip(condition, dataPoint) {
     if (!dataPoint) return;
+    
+    const labelX = currentDataType === "cop" ? "COPx:" : "Mx:";
+    const labelY = currentDataType === "cop" ? "COPy:" : "My:";
+    const valueX = currentDataType === "cop" ? dataPoint.copX.toFixed(3) : dataPoint.mx.toFixed(3);
+    const valueY = currentDataType === "cop" ? dataPoint.copY.toFixed(3) : dataPoint.my.toFixed(3);
     
     const tooltipContent = `
         <div class="tooltip-title" style="color: white;">Participant ${selectedParticipant}</div>
         <div class="tooltip-stat"><span class="tooltip-label">Condition:</span><span>${condition}</span></div>
         <div class="tooltip-stat"><span class="tooltip-label">Time:</span><span>${dataPoint.time.toFixed(0)}s</span></div>
-        <div class="tooltip-stat"><span class="tooltip-label">COPx:</span><span>${dataPoint.copX.toFixed(3)}m</span></div>
-        <div class="tooltip-stat"><span class="tooltip-label">COPy:</span><span>${dataPoint.copY.toFixed(3)}m</span></div>`;
+        <div class="tooltip-stat"><span class="tooltip-label">${labelX}</span><span>${valueX}m</span></div>
+        <div class="tooltip-stat"><span class="tooltip-label">${labelY}</span><span>${valueY}m</span></div>`;
     
     tooltip.html(tooltipContent)
            .classed("hidden", false)
@@ -35,10 +41,11 @@ function updateTooltip(condition, dataPoint) {
         participant: selectedParticipant,
         condition: condition,
         time: dataPoint.time,
-        copX: dataPoint.copX,
-        copY: dataPoint.copY
+        [labelX]: valueX,
+        [labelY]: valueY
     });
 }
+
 
 function moveTooltip(event) {
     if (!tooltipVisible) return;
