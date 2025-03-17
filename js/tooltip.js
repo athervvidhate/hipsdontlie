@@ -59,7 +59,7 @@ function showTooltip(event) {
            .style("position", "absolute")
            .style("z-index", 1000);
     
-    const condition = currentStep === 2 ? "ECR" : "ECN";
+    const condition = currentStep === 1 ? "ECN" : currentStep === 2 ? "ECR" : currentStep === 3 ? "VRN" : currentStep === 4 ? "VRM" : "ECN";
     const participantData = swayData[condition][selectedParticipant];
     
     if (participantData && participantData.length > 0) {

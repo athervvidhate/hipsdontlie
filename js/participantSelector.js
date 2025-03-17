@@ -9,15 +9,23 @@ function setupParticipantSelector() {
         d3.select("#time-display").text("Time: 0s");
 
         updateVisualization(currentStep);
-        if (currentStep !== 3) {
+        if (currentStep !== 5) { 
             d3.select(".step.is-active").select(".line-graph").remove();
             const graphContainer = d3.select(".step.is-active").select(".content")
-                                   .append("div")
-                                   .attr("class", "line-graph")
-                                   .style("margin", "20px auto");
-            const condition = (currentStep === 2 ? "ECR" : "ECN");
+                                       .append("div")
+                                       .attr("class", "line-graph")
+                                       .style("margin", "20px auto");
+        
+            const conditionMap = { 
+                1: "ECN", 
+                2: "ECR", 
+                3: "VRN", 
+                4: "VRM" 
+            };
+            const condition = conditionMap[currentStep] || "ECN";
             renderLineGraph(condition, graphContainer);
         }
+        
     });
     for (let i = 1; i <= 28; i++) {
         selector.append("option").attr("value", i).text(`Participant ${i}`);
