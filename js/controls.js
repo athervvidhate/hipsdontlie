@@ -25,14 +25,19 @@ function setupAnimationControls() {
         .style("cursor", "pointer")
         .on("click", togglePlayPause);
 
-    controls.select("#time-slider")
+        controls.select("#time-slider")
         .style("flex-grow", "1")
         .style("margin", "0 10px")
         .on("input", function() {
             pauseAnimation();
             currentTimeIndex = parseInt(this.value);
             updateFigurePosition();
+    
+            const fps = 30;
+            const seconds = Math.floor(currentTimeIndex / fps);
+            d3.select("#time-display").text(`Time: ${seconds}s`);
         });
+    
 
     controls.select("#time-display")
         .style("min-width", "70px")
@@ -58,7 +63,7 @@ function startAnimation() {
     if (isPlaying) return;
     isPlaying = true;
     
-    const condition = currentStep === 2 ? "ECR" : "ECN";
+    const condition = currentStep === 2 ? "ECR" : currentStep === 1 ? "ECN" : currentStep === 3 ? "VRN" : currentStep === 4 ? "VRM" : "ECR";
     const participantData = swayData[condition][selectedParticipant];
     
     if (!participantData || participantData.length === 0) return;
@@ -97,7 +102,7 @@ function pauseAnimation() {
 }
 
 function updateFigurePosition() {
-    const condition = currentStep === 2 ? "ECR" : "ECN";
+    const condition = currentStep === 2 ? "ECR" : currentStep === 1 ? "ECN" : currentStep === 3 ? "VRN" : currentStep === 4 ? "VRM" : "ECR";
     const participantData = swayData[condition][selectedParticipant];
     
     if (!participantData || participantData.length === 0) return;

@@ -1,6 +1,6 @@
 // main.js
 let scroller, figure, tooltip, tooltipVisible = false, currentStep = 0;
-let swayData = { ECR: {}, ECN: {} };
+let swayData = { ECR: {}, ECN: {}, VRN: {}, VRM: {} };
 let selectedParticipant = 1;
 let isPlaying = false;
 let animationTimer;

@@ -28,12 +28,6 @@ function setupVisualization() {
         .attr("stroke-width", 2)
         .attr("stroke-dasharray", "5,5");
 
-    g.append("circle")
-        .attr("cx", 0)
-        .attr("cy", 0)
-        .attr("r", 3)
-        .attr("fill", "#999");
-
     figure = g.append("g")
         .attr("class", "human-figure")
         .attr("transform", "translate(0, 0)")
@@ -52,7 +46,14 @@ function setupVisualization() {
 
 
 function updateVisualization(step) {
-    const condition = step === 1 ? "ECR" : "ECN";
+    const conditionMap = { 
+        1: "ECN", 
+        2: "ECR", 
+        3: "VRN", 
+        4: "VRM" 
+    };
+    const condition = conditionMap[step] || "ECN";
+    
     if (!swayData[condition][selectedParticipant]) return;
     
     currentTimeIndex = 0;

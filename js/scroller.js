@@ -17,11 +17,12 @@ function handleStepEnter(response) {
     updateVisualization(currentStep);
 
     const currentSectionId = d3.select(response.element).attr("id");
-    if (currentSectionId === "control" || currentSectionId === "condition1") {
+    if (["control", "condition1", "condition2", "condition3"].includes(currentSectionId)) {
         d3.select("#animation-controls").style("display", "flex");
     } else {
         d3.select("#animation-controls").style("display", "none");
     }
+    
 
     if (d3.select(response.element).attr("id") !== "permutation-test") {
         d3.select(response.element).select(".line-graph").remove();
@@ -31,8 +32,15 @@ function handleStepEnter(response) {
             .attr("class", "line-graph")
             .style("margin", "20px auto");
 
-        const condition = (currentStep === 2 ? "ECR" : "ECN");
-        renderLineGraph(condition, graphContainer);
+            const conditionMap = { 
+                1: "ECN", 
+                2: "ECR", 
+                3: "VRN", 
+                4: "VRM" 
+            };
+            const condition = conditionMap[currentStep] || "ECN";
+            renderLineGraph(condition, graphContainer);
+            
     }
 
     if (currentStep === 3) {
