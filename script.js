@@ -59,12 +59,10 @@ async function loadData() {
                 let copX = parseFloat(d.CoPx);
                 let copY = parseFloat(d.CoPy);
 
-                if (!isNaN(participant) && !isNaN(time) && !isNaN(copX) && !isNaN(copY)) {
-                    if (!swayData[condition][participant]) {
-                        swayData[condition][participant] = [];
-                    }
-                    swayData[condition][participant].push({ time, copX, copY });
+                if (!swayData[condition][participant]) {
+                    swayData[condition][participant] = [];
                 }
+                swayData[condition][participant].push({ time, copX, copY });
             });
 
             // Sort data by time for each participant
