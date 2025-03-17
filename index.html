@@ -20,22 +20,38 @@
 
     <!-- Scrollytelling Container -->
     <main>
-        <section id="intro" class="section">
-            <div class="content">
-                <h1>Hips Don't Lie</h1>
-                <h3>How Music and Virtual Reality Shape Body Sway and Balance</h3>
-                <p>Have you ever felt unsteady on your feet? What if music could change how well you balance? Scroll to explore how music and virtual reality influences our body's stability and sway patterns.</p>
-                <p><b>Abhinav Chinnam, Atherv Vidhate, Pranav Rajaram, Zubin Sannakkayala</b></p>
 
+        <section id="intro" class="section">
+            <div class="content intro-content">
+                <h3 id="hook-text"></h3>
+        
+                <!-- The rest of the intro content will stay hidden initially -->
+                <div id="rest-of-intro" class="hidden-intro">
+                    <h1>Hips Don’t Lie</h1>
+                    <p>Imagine standing on a city street...As the world sways back and forth and Mozart crescendos in your ears, your body begins to shift. Is this the secret to improving stability, or a recipe for imbalance?</p>
+                    <p>Scroll down to explore how music and virtual reality can destabilize your body — and how this might be used to help prevent falls.</p>
+                    <p class="team-name"><b>Abhinav Chinnam, Atherv Vidhate, Pranav Rajaram, Zubin Sannakkayala</b></p>
+
+                </div>
             </div>
         </section>
+        
+        
 
 
         <section id="background" class="section">
             <div class="content">
-                <h1>Background</h1>
-                <p>This study examined how music and virtual reality affects body sway, which is the natural movement of the body while standing. 
-                    28 participants stood on a balance platform that measured their Center Of Pressure (COP) movement in the x and y directions, indicating how much the body moved. 
+
+                <h2>What We Know About Balance</h2>
+                <p>Our bodies rely on vision, hearing, and touch to stay balanced. Virtual reality has been shown to increase body sway by fooling the eyes with moving environments. Similarly, music might influence sway by giving subtle rhythmic cues to the brain.
+                    Haven't we all subconsciously swayed to the beat of our favorite song?
+                </p>
+                <p>But, few researchers have asked what happens when these senses are combined. Could rhythmic music synced with VR motion amplify the effect, causing even greater instability?</p>
+
+                <h2>The Study</h2>
+
+                <p>Therefore, this study examined how music and virtual reality affects body sway, which is the natural movement of the body while standing. 
+                    28 participants stood on a balance platform that measured their Center Of Pressure (COP) movement in the x and y directions, indicating how much the body moved (specifically, how the balance in the feet shifted). 
                 </p>
         
                 <p> They experienced different combinations of visual conditions (eyes closed, looking at VR) and music conditions (listening to Mozart's Jupiter Symphony). 
@@ -53,6 +69,8 @@
                         Your browser does not support the audio element.
                     </audio>
                 </div>
+
+
             </div>
         </section>
 
@@ -100,10 +118,15 @@
 
         <section id="conclusion" class="section">
             <div class="content">
-                <h1>Conclusion</h1>
-                <p></p>
+                <h2>Takeaway: Multisensory Environments Destabilize Us. And That’s a Good Thing.</h2>
+                <p>The main thing we want you to learn from this project is that combining virtual reality with rhythmic music can significantly increase body sway, meaning people become less stable when visual and auditory cues are synchronized. This matters because understanding how sensory cues impact balance is critical for developing interventions that improve stability and reduce fall risk, especially in vulnerable populations.</p>
+                <p>Our interactive visualizations make this clear by letting you directly explore sway patterns under different conditions: no stimuli (control), music only, VR motion only, and the powerful combination of both. The increasing range of motion and variability in Center of Pressure (COP) data shows just how sensitive our balance system is to multisensory environments.</p>
+                <p>By showing these sway patterns visually and backing them up with statistical evidence from the permutation test, our project demonstrates both the observable and measurable impact that multisensory environments have on the body’s equilibrium.</p>
+                <p>At the end of the day, your balance isn’t just about your legs — it’s how your brain integrates visual, auditory, and physical cues. By helping people safely experience destabilization in controlled multisensory environments, we can ultimately contribute to better balance training and fall prevention.</p>
             </div>
         </section>
+        
+        
     </main>
 
     <!-- Tooltip -->
@@ -121,6 +144,8 @@
 
     <!-- Load JavaScript -->
     <script src="script.js"></script>
+    <script src="hook.js"></script>
+
 
 </body>
 </html>
