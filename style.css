@@ -465,3 +465,51 @@ h3 {
     width: 80%;
     max-width: 600px;
 }
+
+
+/* Hook Animation Styles */
+
+#hook-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e74c3c;
+    min-height: 2rem;
+    opacity: 1; /* Make sure it's visible during typing */
+    text-align: center;
+}
+
+/* Reveal animation for the rest of the intro */
+.hidden-intro {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.hidden-intro.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Optional underline effect */
+#hook-text::after {
+    content: '';
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: #e74c3c;
+    margin: 5px auto 0 auto;
+    transition: width 1s ease-out;
+}
+
+#hook-text.done::after {
+    width: 50%;
+}
+
+
+.team-name {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 500;
+}
