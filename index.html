@@ -127,8 +127,9 @@
 
         <section class="step" id="permutation-test">
             <div class="step-content">
-                <h2>Statistical Analysis: Permutation Test</h2>
-                <p>Here we perform a permutation test to determine if there's a significant difference in the Center of Pressure (CoPx) between the control and music conditions.</p>
+                <h2>Statistical Analysis: Is This Sway Statistically Significant?</h2>
+                <p>While the visualizations show clear differences in sway patterns between conditions, how can we be sure these aren’t due to random chance? To answer this, we conducted a permutation test, which is a statistical method that helps us determine if the increased movement under multisensory conditions is significant.</p>
+                <p>Specifically, we compared the sway (CoPx) between the control condition and the Music + VR condition. By randomly reassigning sway measurements between these two groups thousands of times, we built a distribution of possible outcomes under the null hypothesis (no true difference between groups).</p>
                 <div id="permutation-test-container"></div>
                 <p>The permutation test works by randomly reassigning data points between groups and calculating the test statistic (absolute difference in means) for each permutation. The p-value represents the proportion of permutations with a test statistic at least as extreme as the observed value. Under any standard threshold, our difference in means is deemed significant. Adding music shows the impacts of the multisensory environment.</p>
             </div>
@@ -136,7 +137,7 @@
 
         <section id="conclusion" class="section">
             <div class="content">
-                <h2>Multisensory Environments Destabilize Us. That’s a Good Thing.</h2>
+                <h2>Multisensory Environments Destabilize Us. That’s a Good Thing.</h2> 
                 <p>The main takeaway we want you to draw from this project is that combining virtual reality with rhythmic music can significantly increase body sway, meaning people become less stable when visual and auditory cues are synchronized. This matters because understanding how sensory cues impact balance is critical for developing interventions that improve stability and reduce fall risk, especially in vulnerable populations.</p>
                 <p>Our interactive visualizations make this clear by letting you directly explore sway patterns under different conditions: no stimuli (control), music only, VR motion only, and the powerful combination of both. The increasing range of motion and variability in Center of Pressure (COP) data shows just how sensitive our balance system is to multisensory environments.</p>
                 <p>By showing these sway patterns visually and backing them up with statistical evidence from the permutation test, our project demonstrates both the observable and measurable impact that multisensory environments have on the body’s equilibrium.</p>
