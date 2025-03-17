@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const hookText = document.getElementById("hook-text");
     const restOfIntro = document.getElementById("rest-of-intro");
 
-    // Split sentences where you want line breaks
     const hookLines = [
         "Every 11 seconds, someone visits the ER due to a fall.",
         "Every 19 minutes, someone dies.",
@@ -30,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(typeWriter, 200); // Short pause between lines
             }
         } else {
-            // Finished typing all lines
             hookText.innerHTML = hookLines
                 .map(line => `<div>${line}</div>`)
                 .join('');

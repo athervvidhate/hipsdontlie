@@ -18,12 +18,11 @@ function renderLineGraph(condition, container) {
        .range([0, width]);
    const originalDomain = x.domain();
 
-   // Get dynamic min/max for the selected participant
-   const yMin = Math.min(0, d3.min(data, d => Math.min(d.copX, d.copY))); // Ensure min is at least 0
+   const yMin = Math.min(0, d3.min(data, d => Math.min(d.copX, d.copY))); 
    const yMax = d3.max(data, d => Math.max(d.copX, d.copY));
 
    const y = d3.scaleLinear()
-       .domain([yMin, yMax])  // Dynamically adjust the y-axis per participant
+       .domain([yMin, yMax])  
        .range([height, 0]);
 
    const xAxisGroup = g.append("g")
@@ -71,7 +70,6 @@ function renderLineGraph(condition, container) {
        .attr("stroke-width", 1.5)
        .attr("d", lineY);
 
-   // Overlay control group if the selected condition is not "ECN"
    if (condition !== "ECN") {
        const controlData = swayData["ECN"][selectedParticipant];
        if (controlData) {
@@ -82,7 +80,7 @@ function renderLineGraph(condition, container) {
            const globalYMin = Math.min(yMin, controlYMin);
            const globalYMax = Math.max(yMax, controlYMax);
 
-           y.domain([globalYMin, globalYMax]); // Update domain
+           y.domain([globalYMin, globalYMax]); 
            yAxisGroup.transition().duration(750).call(d3.axisLeft(y));
 
            const controlLineX = d3.line()
@@ -99,7 +97,7 @@ function renderLineGraph(condition, container) {
                .attr("fill", "none")
                .attr("stroke", "#999") // Gray for control group
                .attr("stroke-width", 1.5)
-               .attr("stroke-dasharray", "4,4") // Dashed line
+               .attr("stroke-dasharray", "4,4")
                .attr("d", controlLineX);
 
            chartGroup.append("path")
@@ -133,30 +131,4 @@ function renderLineGraph(condition, container) {
           </span>
           ` : ""}
         `);
-
-//    container.append("button")
-//        .attr("class", "reset-zoom")
-//        .style("margin-top", "10px")
-//        .style("display", "block")
-//        .style("margin-left", "auto")
-//        .style("margin-right", "auto")
-//        .style("padding", "5px 10px")
-//        .style("background", "#3498db")
-//        .style("color", "white")
-//        .style("border", "none")
-//        .style("border-radius", "4px")
-//        .style("cursor", "pointer")
-//        .text("Reset Zoom")
-//        .on("click", function () {
-//            x.domain(originalDomain);
-//            xAxisGroup.transition().duration(750).call(d3.axisBottom(x));
-//            y.domain([yMin, yMax]); // Reset y-axis to participant-specific range
-//            yAxisGroup.transition().duration(750).call(d3.axisLeft(y));
-//            chartGroup.selectAll(".copx-line, .control-copx-line")
-//                .transition().duration(750)
-//                .attr("d", lineX);
-//            chartGroup.selectAll(".copy-line, .control-copy-line")
-//                .transition().duration(750)
-//                .attr("d", lineY);
-//        });
 }
