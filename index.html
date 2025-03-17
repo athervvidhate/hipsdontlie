@@ -63,9 +63,9 @@
                 <button id="popupButton" class="sleek-button">Click to see the VR setting and listen to the music!</button>
                 <div id="popup" class="popup hidden">
                     <span class="close">&times;</span>
-                    <img src="image.png" alt="Description of image" class="popup-content">
+                    <img src="assets/image.png" alt="Description of image" class="popup-content">
                     <audio controls class="audio-player">
-                        <source src="mozart.mp3" type="audio/mpeg">
+                        <source src="assets/mozart.mp3" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                 </div>
@@ -118,7 +118,7 @@
 
         <section id="conclusion" class="section">
             <div class="content">
-                <h2>Takeaway: Multisensory Environments Destabilize Us. And That’s a Good Thing.</h2>
+                <h2>Takeaway: Multisensory Environments Destabilize Us. That’s a Good Thing.</h2>
                 <p>The main thing we want you to learn from this project is that combining virtual reality with rhythmic music can significantly increase body sway, meaning people become less stable when visual and auditory cues are synchronized. This matters because understanding how sensory cues impact balance is critical for developing interventions that improve stability and reduce fall risk, especially in vulnerable populations.</p>
                 <p>Our interactive visualizations make this clear by letting you directly explore sway patterns under different conditions: no stimuli (control), music only, VR motion only, and the powerful combination of both. The increasing range of motion and variability in Center of Pressure (COP) data shows just how sensitive our balance system is to multisensory environments.</p>
                 <p>By showing these sway patterns visually and backing them up with statistical evidence from the permutation test, our project demonstrates both the observable and measurable impact that multisensory environments have on the body’s equilibrium.</p>
@@ -143,8 +143,19 @@
     </div>
 
     <!-- Load JavaScript -->
-    <script src="script.js"></script>
-    <script src="hook.js"></script>
+    <script src="js/dataLoader.js"></script>
+    <script src="js/visualization.js"></script>
+    <script src="js/controls.js"></script>
+    <script src="js/lineGraph.js"></script>
+    <script src="js/permutationTest.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/participantSelector.js"></script>
+    <script src="js/scroller.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/hook.js"></script>
+
+    <!-- <script src="script.js"></script> -->
 
 
 </body>
